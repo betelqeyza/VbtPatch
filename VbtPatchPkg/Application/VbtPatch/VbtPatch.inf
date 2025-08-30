@@ -1,0 +1,48 @@
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = VbtPatch
+  MODULE_UNI_FILE                = VbtPatch.uni
+  FILE_GUID                      = 6987936E-ED34-44db-AE97-1FA5E4ED2116
+  MODULE_TYPE                    = UEFI_APPLICATION
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = UefiMain
+  UEFI_HII_RESOURCE_SECTION      = TRUE
+  VALID_ARCHITECTURES            = X64
+
+[Sources]
+  VbtPatch.c
+  Filesystem.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  EmbeddedPkg/EmbeddedPkg.dec
+  SignedCapsulePkg/SignedCapsulePkg.dec
+  VbtPatchPkg/VbtPatchPkg.dec
+
+[LibraryClasses]
+  UefiApplicationEntryPoint
+  UefiLib
+  PcdLib
+  UefiBootServicesTableLib
+  DebugLib
+  BaseMemoryLib
+  PciLib
+  PrintLib
+  IniParsingLib
+
+[Protocols]
+  gEfiGraphicsOutputProtocolGuid
+  gEfiAcpiTableProtocolGuid
+  gEfiAcpiSdtProtocolGuid
+  gEfiPciIoProtocolGuid
+  gEfiSimpleFileSystemProtocolGuid
+  gEfiDevicePathProtocolGuid
+  gEfiLoadedImageProtocolGuid
+
+[Guids]
+  gFdtTableGuid
+  gEfiEventReadyToBootGuid
+  gEfiFileSystemVolumeLabelInfoIdGuid
+  gEfiFileInfoGuid
+

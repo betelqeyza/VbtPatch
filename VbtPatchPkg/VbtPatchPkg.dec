@@ -1,0 +1,8 @@
+[Defines]
+  DEC_SPECIFICATION = 0x00010005
+  PACKAGE_NAME      = VbtPatchPkg
+  PACKAGE_GUID      = 88e055d2-aae2-4607-b1f1-a09f8a601f13
+  PACKAGE_VERSION   = 0.1
+
+[Includes]
+  Application/VbtPatch
