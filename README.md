@@ -5,7 +5,7 @@ VbtPatch is a project designed to disable the faulty panel of the Video BIOS Tab
 
 Although this issue does not occur on every device, it doesn't function properly on the Linux side due to its [incorrect implementation](https://wiki.archlinux.org/title/Intel_graphics#Freeze_after_wake_from_sleep/suspend_with_Raptor_Lake_and_Alder_Lake-P) on some newer HP Gen12 *(12, 13 and 14th series CPUs)* laptops.
 
-A BIOS update/modification is required for a permanent fix, but since HP doesn't provide this and almost all of its laptops have Intel Boot Guard, it has become impossible.
+A BIOS update/modification is required for a permanent fix, but since HP doesn't provide this and almost all of it's laptops have **Intel Boot Guard**, it has become impossible (I tried it, CPU immediatly refused to boot up. So please **DO NOT** write anything in the BIOS).
 
 This application can fix this by patching it at the UEFI level (And running before the kernel), 
 
@@ -21,9 +21,7 @@ Existing workaround:
 Advantages:
 
 - Runs entirely at the UEFI level, before any operating system is loaded.
-
 - It works on all operating systems (Linux, Windows, BSD) based on Intel Graphics Drivers.
-
 - Requires no kernel patching, initramfs regeneration, or OS specific configuration.
 
 Disadvantages:
@@ -105,17 +103,9 @@ Logs will be available in `VbtPatch.log` if `logfile=1` is enabled.
 			
     list_add_tail(&devdata->node, &display->vbt.display_devices);
 ```
-4. VBT checksum is recalculated to maintain table integrity (not required for i915, but necessary for compatibility with Windows).
+4. VBT checksum is recalculated to maintain table integrity (actually, it's not important).
 5. The modified table is written back directly to memory.
 6. If specified, loads `/EFI/BOOT/BOOTX64.EFI` in the same partition.
-
-## Technical Details
-
-`DEVICE_HANDLE_LFP2`: It represents the second embedded display panel (Local Flat Panel 2). On some HP laptops, this entry is included even if the second panel is not physically included.
-
-Problem: The `i915` driver interprets it as a valid display, leading to incorrect initialization and suspend/resume failures.
-
-Solution: Setting the `device_type` value of LFP2 to `0x00` disables the entry. This is consistent with Intel’s VBT semantics.
 
 ## My Journey
 
